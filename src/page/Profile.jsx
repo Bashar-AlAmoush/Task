@@ -11,28 +11,10 @@ function Profile() {
   const [userAllPosts, setuserAllPosts] = useState([]);
 
 
-  // const fetchData = async () => {
-
-  //   try {
-      
-  //     const response = await axios.get(
-  //       `https://jsonplaceholder.typicode.com/users/${userId.id}`
-  //     );
-  //     console.log(response.data);
-  //     setUserData(response.data)
-    
-  //   } catch (error) {
-  //     console.error("Error retrieving data:", error);
-  //   }
-  // };
+ 
   const fetchPosts = async () => {
     try {
-      const token = localStorage.getItem("token");
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      };
+     
       const response = await axios.get("https://jsonplaceholder.typicode.com/posts");
       const allPosts = response.data;
   
@@ -48,7 +30,6 @@ function Profile() {
   
 
   useEffect(() => {
-    // fetchData();
     setUserData(userId)
     fetchPosts();
   }, [userId]);

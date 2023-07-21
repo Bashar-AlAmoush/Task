@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Hero = () => {
+function Hero() {
     return (
         <>
             <section
                 style={{
-                    backgroundImage: "url(https://images.pexels.com/photos/3939961/pexels-photo-3939961.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)",
+                    backgroundImage: "url(https://images.pexels.com/photos/4201333/pexels-photo-4201333.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)",
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "cover",
                     backgroundPosition: "center",
@@ -19,38 +19,35 @@ const Hero = () => {
                 <div
                     className="relative mx-auto max-w-screen-xl px-4 py-24 sm:px-6 lg:flex lg:h-screen lg:items-center lg:px-8"
                 >
-                    <div className="max-w-xl text-left ltr:sm:text-left rtl:sm:text-right">
-                        <h1 className="text-3xl font-extrabold sm:text-5xl text-black mb-8">
-                            Let us find your
+                    <div className="max-w-xl mb-20 text-left ltr:sm:text-left rtl:sm:text-right">
+                        <h1 className="text-3xl font-extrabold sm:text-5xl text-gray-500 mb-8">
+                        we're the world's leading custom artwork solution 
 
-                            {/* <strong className="block font-extrabold text-white ">
-                                Forever Home.
-                            </strong> */}
+
                         </h1>
 
-                        <p className="text-l sm:text-l text-gray-800 w-80">
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt illo
-                            tenetur fuga ducimus numquam ea!
-                        </p>
+                       
 
                         <div className="mt-8 flex flex-wrap gap-4 text-center">
                             <a
                                 href="#"
-                                className="block w-full rounded bg-[#a18c6c] px-12 py-3 text-sm font-medium text-white shadow hover:bg-[#947e5a] focus:outline-none focus:ring active:bg-rose-500 sm:w-auto"
+                                className="block w-full rounded bg-sky-500 px-12 py-3 text-sm font-medium text-white shadow hover:bg-sky-600 focus:outline-none focus:ring active:bg-rose-500 sm:w-auto"
                             >
-                                Get Started
+                                View Gallery
                             </a>
 
                             <a
                                 href="#"
-                                className="block w-full rounded bg-white px-12 py-3 text-sm font-medium text-black shadow hover:text-[#947e5a] focus:outline-none focus:ring active:text-rose-500 sm:w-auto"
+                                className="block w-full rounded bg-white px-12 py-3 text-sm font-medium text-black shadow hover:text-sky-500 focus:outline-none focus:ring active:text-rose-500 sm:w-auto"
                             >
-                                Learn More
+                                View Posts
                             </a>
                         </div>
                     </div>
                 </div>
             </section>
+
+
         </>
     )
 }
