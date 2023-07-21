@@ -13,12 +13,14 @@ function Albums() {
   
     const fetchAlbums = async () => {
       try {
-        const response = await axios.get("https://jsonplaceholder.typicode.com/posts");
+        const response = await axios.get("https://jsonplaceholder.typicode.com/albums");
+        // const response = await axios.get("https://jsonplaceholder.typicode.com/posts");
         setAlbums(response.data);
       } catch (error) {
         console.error("Error retrieving data:", error);
       }
     };
+    console.log(albums)
   
     const indexOfLastAlbum = currentPage * albumsPerPage;
     const indexOfFirstAlbum = indexOfLastAlbum - albumsPerPage;
