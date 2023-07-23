@@ -137,9 +137,7 @@ function Post() {
                   ? "Hide Details"
                   : "Show Details →"}
               </button>
-              {/* <div className="absolute top-4 right-4 cursor-pointer hover:text-gray-600">
-                <FaPlus className="w-5 h-5 text-gray-300 hover:text-gray-600 " />
-              </div> */}
+            
               {showPostDetails && selectedPostId === post.id && (
                 <CardBody className="px-4 py-3">
                   <Typography>{post.body}</Typography>
@@ -174,7 +172,7 @@ function Post() {
         </div>
         <div className="flex justify-center mt-6">
           <ul className="flex gap-2">
-            {/* Generate pagination buttons */}
+            
             {currentPage > 1 && (
               <>
                 <li>
