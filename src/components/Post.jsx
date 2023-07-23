@@ -5,21 +5,26 @@ import {
   CardHeader,
   CardBody,
   Typography,
-  Avatar,
 } from "@material-tailwind/react";
 import { FaPlus } from "react-icons/fa";
-import PostDetailsPopup from "./PostDetailsPopup";
+import AddPostPopup from "./AddPostPopup";
 import "./custom-scrollbar.css"; // Import the custom CSS file
-
+import PostDetailsPopup from "./PostDetailsPopup";
 function Post() {
   const [posts, setPosts] = useState([]);
   const [selectedPostId, setSelectedPostId] = useState(null);
   const [comments, setComments] = useState([]);
   const [showPostDetails, setShowPostDetails] = useState(false);
-
+  const [showAddPostPopup, setShowAddPostPopup] = useState(false);
+ 
   const [currentPage, setCurrentPage] = useState(1);
-  const postsPerPage = 6; // Number of posts to display per page
-  const pageNeighbours = 2; // Number of pagination buttons to show on each side of the current page
+  const postsPerPage = 6; 
+  const pageNeighbours = 2; 
+
+  const [token, setToken] = useState(
+    JSON.parse(localStorage.getItem("auth")) ?? ""
+  );
+
 
   useEffect(() => {
     fetchPosts();
@@ -97,17 +102,18 @@ function Post() {
   };
 
   const pageNumbers = generatePageNumbers(totalPages, currentPage);
-
   return (
     <>
       <div className="bg-slate-100 pb-12 mt-24">
-        <div className="cursor-pointer group flex items-left gap-2 mx-40 pt-8">
-          <span className="text-gray-500 group-hover:text-gray-900">
+        {token=== 1 && (<div className="cursor-pointer group flex items-left gap-2 mx-40 pt-8  ">
+          <span
+            className="text-gray-500 group-hover:text-gray-900 flex  gap-2"
+            onClick={() => setShowAddPostPopup(true)}
+          ><FaPlus className="w-6 h-6 text-gray-500 group-hover:text-gray-900" />
             Add New Post
           </span>
-          <FaPlus className="w-6 h-6 text-gray-500 group-hover:text-gray-900" />
-        </div>
-
+          
+        </div> ) }
         <div className="grid grid-cols-1 gap-6 p-16 mx-20 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
           {currentPosts.map((post) => (
             <Card
@@ -193,7 +199,20 @@ function Post() {
         <PostDetailsPopup
           post={currentPosts.find((post) => post.id === selectedPostId)}
           comments={comments}
+          setComments = {setComments}
           onClose={() => setShowPostDetails(false)}
+          
+        />
+      )}
+
+      {showAddPostPopup && (
+        <AddPostPopup
+          onClose={() => setShowAddPostPopup(false)}
+          posts={posts}
+          setPosts={setPosts}
+          
+         
+          // onAddPost={handleAddPost}
         />
       )}
     </>
