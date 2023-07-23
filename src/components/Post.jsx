@@ -8,8 +8,11 @@ import {
   Avatar,
 } from "@material-tailwind/react";
 import { FaPlus } from "react-icons/fa";
+import PostDetailsPopup from "./PostDetailsPopup";
+import "./custom-scrollbar.css"; // Import the custom CSS file
+
 function Post() {
-  const [Posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState([]);
   const [selectedPostId, setSelectedPostId] = useState(null);
   const [comments, setComments] = useState([]);
   const [showPostDetails, setShowPostDetails] = useState(false);
@@ -65,7 +68,8 @@ function Post() {
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = Posts.slice(indexOfFirstPost, indexOfLastPost);
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+  const totalPages = Math.ceil(posts.length / postsPerPage);
 
   const generatePageNumbers = (totalPages, currentPage) => {
     let startPage = Math.max(1, currentPage - pageNeighbours);
@@ -92,7 +96,6 @@ function Post() {
     return pages;
   };
 
-  const totalPages = Math.ceil(Posts.length / postsPerPage);
   const pageNumbers = generatePageNumbers(totalPages, currentPage);
 
   return (
@@ -137,42 +140,11 @@ function Post() {
                   ? "Hide Details"
                   : "Show Details →"}
               </button>
-            
-              {showPostDetails && selectedPostId === post.id && (
-                <CardBody className="px-4 py-3">
-                  <Typography>{post.body}</Typography>
-                  <hr className="my-4 border-gray-300" />
-                  <h2 className="text-lg font-bold mb-4">Comments :</h2>
-
-                  {comments.map((comment) => (
-                    <div key={comment.id} className="bg-gray-100 p-6">
-                      <div className="flex flex-col space-y-4">
-                        <div className="bg-white p-4 rounded-lg shadow-md flex items-start">
-                          <img
-                            src="https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg"
-                            alt="User Avatar"
-                            className="w-12 h-12 rounded-full mr-4"
-                          />
-                          <div>
-                            <h3 className="text-md font-bold">
-                              {comment.name}
-                            </h3>
-                            <Typography className="text-gray-700">
-                              {comment.body}
-                            </Typography>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </CardBody>
-              )}
             </Card>
           ))}
         </div>
         <div className="flex justify-center mt-6">
           <ul className="flex gap-2">
-            
             {currentPage > 1 && (
               <>
                 <li>
@@ -216,7 +188,16 @@ function Post() {
           </ul>
         </div>
       </div>
+
+      {showPostDetails && selectedPostId && (
+        <PostDetailsPopup
+          post={currentPosts.find((post) => post.id === selectedPostId)}
+          comments={comments}
+          onClose={() => setShowPostDetails(false)}
+        />
+      )}
     </>
   );
 }
+
 export default Post;

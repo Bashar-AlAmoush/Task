@@ -1,0 +1,10 @@
+::-webkit-scrollbar-thumb {
+    background-color: #1e40af;
+    border-radius: 999px;
+  }
+  
+  /* Set the color of the scrollbar track */
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  } 
+  
