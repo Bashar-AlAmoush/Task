@@ -1,39 +1,34 @@
 import axios from "axios";
-import React, { useState, useEffect,useContext } from "react";
-import { UserContext } from '../Context/UserContext';
-
-
-
+import React, { useState, useEffect, useContext } from "react";
+import { UserContext } from "../Context/UserContext";
 
 function Profile() {
-  const  {userId}  = useContext(UserContext);
+  const { userId } = useContext(UserContext);
   const [userData, setUserData] = useState({});
   const [userAllPosts, setuserAllPosts] = useState([]);
 
-
- 
   const fetchPosts = async () => {
     try {
-     
-      const response = await axios.get("https://jsonplaceholder.typicode.com/posts");
+      const response = await axios.get(
+        "https://jsonplaceholder.typicode.com/posts"
+      );
       const allPosts = response.data;
-  
-     
-      const filteredPosts = allPosts?.filter((post) => post?.userId === userId?.id);
-  
+
+      const filteredPosts = allPosts?.filter(
+        (post) => post?.userId === userId?.id
+      );
+
       console.log(filteredPosts);
       setuserAllPosts(filteredPosts);
     } catch (error) {
       console.error("Error retrieving data:", error);
     }
   };
-  
 
   useEffect(() => {
-    setUserData(userId)
+    setUserData(userId);
     fetchPosts();
   }, [userId]);
-
 
   function breakText(text, breakAfter) {
     if (text.length <= breakAfter) {
@@ -47,18 +42,16 @@ function Profile() {
     return brokenText;
   }
 
- 
-
   return (
     <>
       <div id="edit-portal"></div>
-      <div className="h-screen bg-gray-200">
-        <div className="flex flex-col md:flex-row">
-          <div className="w-full md:w-1/2 ms:1/3">
+      <div className="min-h-screen bg-gray-200 flex flex-col">
+        <div className="flex flex-col md:flex-row flex-1">
+          <div className="w-full md:w-1/2">
             {/* Left side content */}
-            <div className="h-screen bg-gray-200 pt-8">
+            <div className="h-full bg-gray-200 pt-8">
               <div>
-                <div className="w-full ms-8 mx-auto bg-white rounded-lg overflow-hidden shadow-lg">
+                <div className="w-full md:w-3/4 mx-auto bg-white rounded-lg overflow-hidden shadow-lg">
                   <div className="border-b px-4 pb-6">
                     <div className="text-center my-4">
                       <img
@@ -67,12 +60,13 @@ function Profile() {
                         alt=""
                       />
                       <div className="py-2">
-                        <h3 className="font-bold text-2xl mb-1">{userId?.username}</h3>
+                        <h3 className="font-bold text-2xl mb-1">
+                          {userId?.username}
+                        </h3>
                       </div>
                     </div>
                     <div className="flex gap-2 px-2 justify-center">
-                      <div className="space-x-8 flex justify-center mt-32 md:mt-0 md:justify-center">
-                      </div>
+                      <div className="space-x-8 flex justify-center mt-32 md:mt-0 md:justify-center"></div>
                     </div>
                   </div>
                   <div className="px-4 py-4 w-full">
@@ -98,7 +92,7 @@ function Profile() {
                             </div>
                             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                               <dt className="text-sm font-medium text-gray-500">
-                              Phone Number 
+                                Phone Number
                               </dt>
                               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                 {userData?.phone}
@@ -106,7 +100,7 @@ function Profile() {
                             </div>
                             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                               <dt className="text-sm font-medium text-gray-500">
-                              website
+                                website
                               </dt>
                               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                 {userData?.website}
@@ -115,20 +109,23 @@ function Profile() {
 
                             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                               <dt className="text-sm font-medium text-gray-500">
-                              Address
+                                Address
                               </dt>
                               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {userData?.address?.city} / {userData?.address?.street} /{userData?.address?.suite}
+                                {userData?.address?.city} /{" "}
+                                {userData?.address?.street} /
+                                {userData?.address?.suite}
                               </dd>
                             </div>
 
-
                             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                               <dt className="text-sm font-medium text-gray-500">
-                              Company
+                                Company
                               </dt>
                               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {userData?.company?.name} / {userData?.company?.bs} /{userData?.company?.catchPhrase}
+                                {userData?.company?.name} /{" "}
+                                {userData?.company?.bs} /
+                                {userData?.company?.catchPhrase}
                               </dd>
                             </div>
                           </dl>
@@ -142,17 +139,15 @@ function Profile() {
             </div>
           </div>
 
-
-          
           <div className="w-full md:w-1/2">
             {/* Right side content */}
-            <div className="w-full max-w-md mx-auto mt-8">
+            <div className="w-full max-w-md mx-auto mt-8 md:mt-0">
               <div className="flex border-b border-gray-300"></div>
               <div id="tab1" className="tabcontent p-4">
                 <h2 className="text-lg font-bold text-gray-800">User Post</h2>
                 <div
                   className="mt-2 text-gray-700 overflow-y-auto"
-                  style={{ height: "31rem" }}
+                  style={{ maxHeight: "31rem" }}
                 >
                   {userAllPosts ? (
                     userAllPosts.map((post, index) => (
@@ -187,12 +182,9 @@ function Profile() {
                             <p className="mt-2 text-gray-600 text-sm overflow-wrap break-word whitespace-pre-wrap">
                               <span className="break-words">
                                 {breakText(post.body, 20)}
-                                
                               </span>
                             </p>
                           </div>
-
-                        
                         </div>
                       </div>
                     ))
@@ -206,8 +198,6 @@ function Profile() {
         </div>
       </div>
     </>
-
-  )
+  );
 }
-
-export default Profile
+export default Profile;
